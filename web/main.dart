@@ -8,8 +8,8 @@ import 'package:func/func.dart';
 @JS()
 @anonymous
 class DartInterface {
-  external set greeting(value);
-  external Function get greeting;
+  external set greeting(Func1<String,String> value);
+  external Func1<String,String> get greeting;
   external factory DartInterface();
 }
 
