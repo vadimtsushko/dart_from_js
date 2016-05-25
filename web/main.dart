@@ -3,21 +3,7 @@
 
 import 'dart:html';
 import 'package:js/js.dart';
-import 'package:func/func.dart';
-
-@JS()
-@anonymous
-class DartInterface {
-  external set greeting(Func1<String,String> value);
-  external Func1<String,String> get greeting;
-  external set createPerson(Func1<JsPerson,String> value);
-  external Func1<JsPerson,String> get createPerson;
-
-  external factory DartInterface();
-}
-
-@JS()
-external setupDartInterface(DartInterface interface);
+import 'package:dart_from_js/js_interface.dart';
 
 
 void main() {
@@ -26,29 +12,19 @@ void main() {
   interface.greeting = allowInterop(greeting);
   interface.createPerson = allowInterop(createPerson);
   setupDartInterface(interface);
+  UserPrototype userPrototype = new UserPrototype();
+  userPrototype.greeting = allowInteropCaptureThis(UserMethods.greeting);
+  userPrototype.initialize = allowInteropCaptureThis(UserMethods.initialize);
+  createClass(interface, 'User', userPrototype);
+  querySelector('#testUserGreetingFromDart').onClick.listen(greetUsingUserClass);
 }
 
 String greeting(String user) => "Hello $user (from the dart side of universe)";
 
+greetUsingUserClass(_) {
+  User user = new User('Sofia');
+  String greeting = user.greeting();
+  querySelector('#output').text = greeting;
 
-@JS()
-@anonymous
-class JsPerson {
-  external set firstName(String value);
-  external String get firstName;
-  external set greeting(Func0<String> value);
-  external Func0<String> get greeting;
-  external factory JsPerson();
 }
 
-@JS('Person')
-JsPerson createPerson(String firstName) {
-  JsPerson result = new JsPerson();
-  result.firstName = firstName;
-  result.greeting = allowInteropCaptureThis(personGreeting);
-  return result;
-}
-
-String personGreeting(JsPerson me) {
-  return "Hello, I'm ${me.firstName}";
-}

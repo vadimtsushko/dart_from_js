@@ -19,10 +19,15 @@
 </head>
 
 <body>
+<div style="display: flex; flex-direction: column; width: 400px">
+    <button id="greet" onclick="helloFromJs('JS CODE')">Get greeting from Dart</button>
+    <button id="testObject" onclick="personClassHello('Vadim')">Get greeting from instance of Dart class (sort of)</button>
+    <button id="testPersonGreeting" onclick="sayHello(Person,'Victor')">Get greeting from instance of Dart jswrapper class, var2</button>
+    <button id="testUserGreeting" onclick="sayHello(dartInterface.User,'Daniil')">Get greeting in javascript from instance of Dart jswrapper class, var3 (cool javascript class with prototype)</button>
+    <button id="testUserGreetingFromDart">Get greeting in Dart from instance of Dart jswrapper class (cool javascript class with prototype) var4</button>
+</div>
 
-<button id="greet" onclick="helloFromJs('JS CODE')">Get greeting from Dart</button>
-<button id="testObject" onclick="personClassHello('Vadim')">Get greeting from instance of Dart class (sort of)</button>
-  <div id="output"></div>
+<div id="output"></div>
 
 </body>
 </html>
