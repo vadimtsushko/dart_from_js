@@ -10,8 +10,8 @@ import 'package:func/func.dart';
 class DartInterface {
   external set greeting(Func1<String,String> value);
   external Func1<String,String> get greeting;
-  external set createPerson(Func1<JsPerson,String> value);
-  external Func1<JsPerson,String> get createPerson;
+  external set createPerson(Func1<String,JsPerson> value);
+  external Func1<String,JsPerson> get createPerson;
 
   external factory DartInterface();
 }
